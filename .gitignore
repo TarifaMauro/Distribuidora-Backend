@@ -119,3 +119,5 @@ Desktop.ini
 .vscode/
 *.swp
 *.swo
+
+/src/generated/prisma
