@@ -3,7 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 // Conexion a la base de datos
-const pool = require('./config/db');
+const prisma = require('./config/db');
 
 
 const app = express();
@@ -19,11 +19,11 @@ app.use(express.urlencoded({ extended: true }));//Permite que el servidor reciba
 
 app.get('/', async (req, res) => {
     try {
-        const result = await pool.query('SELECT NOW()');
+        const result = await prisma.$queryRaw`SELECT NOW()`;
         res.json({
             status: 'OK',
             message: 'Conexion exitosa a la base de datos',
-            databaseTime: result.rows[0].now
+            databaseTime: result[0].now
         });
     } catch (err) {
         console.error('Error al conectar a la base de datos:', err.stack);
